@@ -34,6 +34,7 @@ RUN apk add --no-cache git autoconf automake g++ make file && \
         --prefix=$BITCOIN_ROOT && \
     make -j4 && \
     make install && \
+    cp $BITCOIN_ROOT/bin/omnicored $BITCOIN_ROOT/bin/omnicore-cli $BITCOIN_ROOT/bin/bitcoin-tx /usr/local/bin &&\
     rm -rf $BITCOIN_ROOT/db-4.8.30.NC* && \
     rm -rf $BDB_PREFIX/docs && \
     rm -rf $BITCOIN_REPO && \
@@ -45,11 +46,14 @@ RUN apk add --no-cache git autoconf automake g++ make file && \
     apk del git autoconf automake g++ make file
 
 
+VOLUME ["/omnicore"]
+
 EXPOSE 8332 8333 18332 18333
 
 WORKDIR /omnicore
 
 ADD ./bin /usr/local/bin/
+
 COPY docker-entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
