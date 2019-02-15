@@ -44,14 +44,14 @@ RUN apk add --no-cache git autoconf automake g++ make file && \
     strip $BITCOIN_ROOT/lib/libbitcoinconsensus.so.0.0.0 && \
     apk del git autoconf automake g++ make file
 
-ADD ./bin /usr/local/bin
 
 EXPOSE 8332 8333 18332 18333
 
 WORKDIR /omnicore
 
+ADD ./bin /usr/local/bin/
 COPY docker-entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
 
-CMD ["omnicored_init]
+CMD ["omnicore_start"]

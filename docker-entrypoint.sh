@@ -1,16 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-if [[ $(echo "$1" | cut -c1) = "-" ]]; then
-  echo "$0: assuming arguments for omnicored"
-
-  set -- omnicored "$@"
+# first arg is `-f` or `--some-option`
+# or first arg is `something.conf`
+if [ "${1#-}" != "$1" ] || [ "${1%.conf}" != "$1" ]; then
+	set -- omnicore_init "$@"
 fi
 
-if [[ "$1" = "omnicored" ]] || [[ "$1" = "omnicore-cli" ]] || [[ "$1" = "bitcoin-tx" ]]; then
-  echo
-  exec "$@"
-fi
-
-echo
 exec "$@"
