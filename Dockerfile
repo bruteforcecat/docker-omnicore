@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.7
 
 LABEL maintainer="KaFai Choi <kafaicoder@gmail.com>"
 
